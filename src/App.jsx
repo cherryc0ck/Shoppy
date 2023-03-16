@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "styles/GlobalStyles";
 import { theme } from "styles/themes/theme";
 import Navbar from "components/header/Navbar";
+import { AuthContextProvider } from "context/AuthContext";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -14,8 +15,10 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Navbar />
-          <Outlet />
+          <AuthContextProvider>
+            <Navbar />
+            <Outlet />
+          </AuthContextProvider>
         </ThemeProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>
