@@ -7,6 +7,7 @@ import NewProducts from "pages/NewProducts";
 import ProductDetail from "pages/ProductDetail";
 import NotFound from "pages/NotFound";
 import MyCart from "pages/MyCart";
+import ProtectedRoute from "ProtectedRoute";
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -17,9 +18,23 @@ const Routes = () => {
       children: [
         { index: true, element: <Home /> },
         { path: "/products", element: <AllProducts /> },
-        { path: "/products/new", element: <NewProducts /> },
+        {
+          path: "/products/new",
+          element: (
+            <ProtectedRoute requireAdmin>
+              <NewProducts />
+            </ProtectedRoute>
+          ),
+        },
         { path: "/products/:id", element: <ProductDetail /> },
-        { path: "/carts", element: <MyCart /> },
+        {
+          path: "/carts",
+          element: (
+            <ProtectedRoute>
+              <MyCart />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
   ]);
