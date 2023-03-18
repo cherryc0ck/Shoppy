@@ -38,7 +38,10 @@ const Navbar = () => {
 const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid grey;
 `;
 
 const StyledLink = styled(Link)`

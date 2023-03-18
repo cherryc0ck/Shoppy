@@ -19,8 +19,8 @@ const StyledProfile = styled.div`
   gap: 1rem;
 
   figure {
-    width: 10rem;
-    height: 10rem;
+    width: 3rem;
+    height: 3rem;
 
     img {
       border-radius: 50%;
