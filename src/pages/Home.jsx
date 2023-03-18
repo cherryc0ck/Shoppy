@@ -1,14 +1,8 @@
+import Products from "components/products/Products";
 import React from "react";
 
 const Home = () => {
-  return (
-    <main>
-      <div>Shop With Us</div>
-      <section>
-        <article></article>
-      </section>
-    </main>
-  );
+  return <main></main>;
 };
 
 export default Home;

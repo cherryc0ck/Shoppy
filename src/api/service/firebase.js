@@ -79,8 +79,9 @@ export const getProducts = async () => {
   return get(child(dbRef, "products"))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        return Object.values(snapshot.val());
       }
+      return [];
     })
     .catch((error) => {
       console.error(error);
