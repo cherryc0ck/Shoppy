@@ -6,7 +6,16 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, child, get } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  child,
+  set,
+  get,
+  update,
+  push,
+} from "firebase/database";
+import { v4 as uuidV4 } from "uuid";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,6 +28,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const dbRef = ref(getDatabase());
+const database = getDatabase();
 provider.setCustomParameters({ prompt: "select_account" });
 
 export const login = () => {
@@ -44,6 +54,33 @@ const adminUser = async (user) => {
         return { ...user, isAdmin };
       }
       return user;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const addNewProduct = (product, image) => {
+  const id = uuidV4();
+  const { desc, title, price, category, options } = product;
+  set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    category,
+    desc,
+    image: image,
+    options: options.split(","),
+    price: parseInt(price),
+    title,
+  });
+};
+
+export const getProducts = async () => {
+  return get(child(dbRef, "products"))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      }
     })
     .catch((error) => {
       console.error(error);
